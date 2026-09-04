@@ -60,3 +60,48 @@ Policy Engine
 Recommended Merchant Action
       ↓
 Merchant Decision
+
+                         ┌────────────────────────────┐
+                         │        Next.js UI          │
+                         │                            │
+                         │ Dashboard                  │
+                         │ Case Search                │
+                         │ Filters                    │
+                         │ Case Details               │
+                         │ Risk Explanation           │
+                         │ Decision Workflow          │
+                         └──────────────┬─────────────┘
+                                        │
+                                   HTTP / JSON
+                                        │
+                                        ▼
+                         ┌────────────────────────────┐
+                         │        FastAPI API         │
+                         │                            │
+                         │ /dashboard                 │
+                         │ /cases                     │
+                         │ /cases/{id}                │
+                         │ /cases/{id}/explanation   │
+                         │ /cases/{id}/decision      │
+                         │ /cases/{id}/decisions     │
+                         └──────────────┬─────────────┘
+                                        │
+                       ┌────────────────┼─────────────────┐
+                       │                │                 │
+                       ▼                ▼                 ▼
+              ┌────────────────┐ ┌───────────────┐ ┌──────────────┐
+              │   Risk Engine  │ │ Policy Engine │ │ Persistence  │
+              │                │ │               │ │              │
+              │ Preprocessor   │ │ Risk Rules    │ │ decisions.csv│
+              │ XGBoost        │ │ Risk Bands    │ │              │
+              │ Probability    │ │ Loss Analysis │ │              │
+              │ Contributions  │ │ Friction      │ │              │
+              └───────┬────────┘ └───────────────┘ └──────────────┘
+                      │
+                      ▼
+             ┌───────────────────┐
+             │ Trained Artifacts │
+             │                   │
+             │ preprocessor.pkl  │
+             │ xgboost.pkl       │
+             └───────────────────┘
