@@ -1,6 +1,6 @@
 # Customer History Additive Scoring Algorithm
 
-**Author:** Manus AI
+**Author:** Himanshu
 
 ## Purpose
 
